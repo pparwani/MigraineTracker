@@ -21,8 +21,8 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
 def verify_token(token: str, credentials_exception):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
+        _id: str = payload.get("sub")
+        if _id.__len__ == 0:
             raise credentials_exception
         return payload
     except Exception as e:

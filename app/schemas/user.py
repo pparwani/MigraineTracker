@@ -3,6 +3,7 @@
 from typing import Optional
 from pydantic import BaseModel, EmailStr, Field
 from beanie import Document
+from bson import ObjectId
 
 class UserBase(BaseModel):
     username: str = Field(..., example="john_doe")
@@ -32,5 +33,12 @@ class User(UserDisplay, Document):
     async def by_username(cls, username: str) -> Optional["User"]:
         """Get a user by username."""
         return await cls.find_one(cls.username == username)
+    
+    @classmethod
+    async def by_id(cls, user_id: str) -> Optional["User"]:
+        """Get a user by ID."""
+        if not ObjectId.is_valid(user_id):
+            return None
+        return await cls.find_one(cls.id == ObjectId(user_id))
         
     
