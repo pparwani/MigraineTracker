@@ -17,4 +17,3 @@ class Settings(BaseSettings):
         env_file = '.env'
 
 settings = Settings()
-print("Current settings:", settings.dict())  # This will show you what's actually being loaded
