@@ -2,19 +2,15 @@
 
 from typing import List, Optional
 from bson import ObjectId
-from app.schemas.migraine_schema import MigraineCreate, MigraineUpdate, MigraineDisplay
+from app.schemas.migraine_schema import MigraineCreate, MigraineUpdate, MigraineDisplay, Migraine
 from app.db.mongodb_utils import get_database
 
 class MigraineService:
 
     @staticmethod
     async def create_migraine(user_id: str, migraine_data: MigraineCreate) -> MigraineDisplay:
-        db = get_database()
-        migraine_dict = migraine_data.dict()
-        migraine_dict["user_id"] = user_id  # Add user reference
-        new_migraine = await db["migraines"].insert_one(migraine_dict)
-        created_migraine = await db["migraines"].find_one({"_id": new_migraine.inserted_id})
-        return MigraineDisplay(**created_migraine)
+        created = await Migraine.insert_record(new_migraine=migraine_data,user_id=ObjectId(user_id))
+        return MigraineDisplay(**created.model_dump())
 
     @staticmethod
     async def get_migraine(user_id: str, migraine_id: str) -> Optional[MigraineDisplay]:
@@ -24,9 +20,8 @@ class MigraineService:
 
     @staticmethod
     async def get_all_migraines(user_id: str) -> List[MigraineDisplay]:
-        db = get_database()
-        migraines = await db["migraines"].find({"user_id": user_id}).to_list(None)
-        return [MigraineDisplay(**migraine) for migraine in migraines]
+        all_migraines = await Migraine.by_user(user_id=ObjectId(user_id))
+        return all_migraines
 
     @staticmethod
     async def update_migraine(user_id: str, migraine_id: str, migraine_update: MigraineUpdate) -> Optional[MigraineDisplay]:
