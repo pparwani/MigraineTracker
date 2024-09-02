@@ -27,5 +27,10 @@ class User(UserDisplay, Document):
     async def by_email(cls, email: str) -> Optional["User"]:
         """Get a user by email."""
         return await cls.find_one(cls.email == email)
+    
+    @classmethod
+    async def by_username(cls, username: str) -> Optional["User"]:
+        """Get a user by username."""
+        return await cls.find_one(cls.username == username)
         
     

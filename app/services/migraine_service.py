@@ -2,7 +2,7 @@
 
 from typing import List, Optional
 from bson import ObjectId
-from app.models.migraine_model import MigraineCreate, MigraineUpdate, MigraineDisplay
+from app.schemas.migraine_schema import MigraineCreate, MigraineUpdate, MigraineDisplay
 from app.db.mongodb_utils import get_database
 
 class MigraineService:

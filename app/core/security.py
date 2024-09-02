@@ -4,11 +4,12 @@ from datetime import datetime, timedelta
 from passlib.context import CryptContext
 import jwt
 from typing import Optional
+from app.core.config import settings
 
 
-SECRET_KEY = "your_secret_key"  # Ideally, fetch this from environment variables
+SECRET_KEY = settings.secret_key  # Ideally, fetch this from environment variables
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()

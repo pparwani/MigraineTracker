@@ -3,7 +3,7 @@
 from fastapi import Depends, HTTPException, status, Security
 from fastapi.security import OAuth2PasswordBearer
 from app.core.security import verify_token
-from app.models.user_model import UserDisplay
+from app.schemas.user import UserDisplay
 from app.db.mongodb_utils import get_database
 import jwt
 
