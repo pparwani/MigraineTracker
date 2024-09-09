@@ -4,7 +4,7 @@ services:
     volumes:
       - .:/code
     ports:
-      - "8080:8080"
+      - "8000:8000"
       - "8199:8199"
     depends_on:    #to debug docker run --mount type=bind,source=$(pwd),target=/code -p 8199:8199 -p 8080:8080 migrainetracker
       - mongodb

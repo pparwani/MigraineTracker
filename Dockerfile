@@ -14,5 +14,5 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Command to run on container start
-# CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
-CMD  ["python3", "-m","debugpy","--listen","0.0.0.0:8199","--wait-for-client","app/main.py"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# CMD  ["python3", "-m","debugpy","--listen","0.0.0.0:8199","--wait-for-client","app/main.py"]
